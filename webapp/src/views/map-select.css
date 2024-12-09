@@ -1,0 +1,37 @@
+.map-select-list {
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: -4px;
+
+    .ant-list-item {
+        padding: 12px 8px;
+        margin-top: 4px;
+        border: 1px solid black;
+        border-radius: 4px;
+        transition: all ease-in-out 200ms;
+    }
+    .ant-list-item:hover {
+        border: 1px solid white;
+    }
+    .ant-list-item:first-child {
+        margin-top: 0;
+    }
+    .ant-list-item-meta-avatar {
+        margin: 0 !important;
+    }
+
+    .ant-list-empty-text {
+        padding: 8px;
+    }
+
+    .ant-spin-blur::after {
+        display: none;
+    }
+}
+
+.search-maps-input {
+    background: black !important;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.15);
+}

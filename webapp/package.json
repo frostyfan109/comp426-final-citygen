@@ -1,0 +1,79 @@
+{
+  "name": "webapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@gatsbyjs/reach-router": "^2.0.1",
+    "@mui/icons-material": "^6.1.9",
+    "@mui/material": "^6.1.9",
+    "@rehooks/document-title": "github:rehooks/document-title",
+    "@svgdotjs/svg.js": "^3.2.4",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "antd": "^5.22.2",
+    "chroma-js": "^3.1.2",
+    "classnames": "^2.5.1",
+    "d3-quadtree": "^1.0.7",
+    "dat.gui": "^0.7.9",
+    "engine": "file:../../raycast-engine/engine",
+    "extendable-error": "^0.1.7",
+    "interactjs": "^1.10.27",
+    "isect": "^3.0.2",
+    "jsts": "^1.6.2",
+    "loglevel": "^1.9.2",
+    "moment": "^2.30.1",
+    "polyk": "^0.24.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1",
+    "roughjs": "^4.6.6",
+    "simplex-noise": "^2.4.0",
+    "simplify-js": "^1.2.4",
+    "three": "^0.115.0",
+    "three-csg-ts": "^1.0.6",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "@types/jest": "^29.5.14",
+    "@types/jsts": "^0.17.24",
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "craco-alias": "^3.0.1",
+    "postcss": "^8.4.49",
+    "postcss-cssnext": "^3.1.1",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-nesting": "^13.0.1",
+    "postcss-preset-env": "^10.1.1",
+    "typescript": "^4.9.5"
+  }
+}

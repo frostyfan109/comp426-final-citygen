@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  font-family: 'VCR';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.ant-tooltip-inner, .ant-tooltip-arrow::before, .ant-tooltip-arrow::after {
+  background-color: rgba(128, 128, 128, 0.85) !important;
+}
+
+@font-face {
+  font-family: 'VCR';
+  src: local(VCR), url('./VCR_OSD_MONO_1.001.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

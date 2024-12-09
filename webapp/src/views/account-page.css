@@ -1,0 +1,23 @@
+.account-page {
+    .ant-descriptions-header {
+        text-align: start;
+        margin-bottom: 16px;
+    }
+}
+
+.avatar-section {
+    width: 100%;
+    text-align: start;
+    margin-top: 16px;
+    font-size: 15px;
+
+    h5 {
+        font-size: 15px;
+    }
+}
+
+.password-section {
+    width: 100%;
+    text-align: start;
+    margin-top: 24px;
+}

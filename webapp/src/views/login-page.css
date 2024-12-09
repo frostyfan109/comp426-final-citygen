@@ -1,0 +1,17 @@
+.login-form-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+.login-form {
+    padding: 8px 16px;
+    max-width: 480px;
+    width: 100%;
+    text-align: start;
+
+    .login-form-general-error {
+        font-size: 12px;
+        color: #cf1322;
+        font-style: italic;
+    }
+}

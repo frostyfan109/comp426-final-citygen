@@ -1,0 +1,93 @@
+[project]
+name = "Citygen"
+version = "0"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { email = "groupe@renci.org" },
+    { name = "Griffin Roupe"}
+]
+license = "MIT License"
+dependencies = [
+    "fastapi==0.115.5",
+    "advanced-alchemy==0.24.0",
+    "pydantic-settings==2.6.1",
+    "pydantic==2.10.1",
+    "granian[reload]==1.6.4",
+    # database
+    "alembic==1.14.0",
+    "psycopg2==2.9.10",
+    "sqlalchemy==2.0.36",
+    "asyncpg==0.30.0",
+    "ruff>=0.7.4",
+    "modern-di-fastapi==0.4.2",
+    "passlib[bcrypt]>=1.7.4",
+    "fastapi-users[sqlalchemy]>=14.0.0",
+    "email-validator==2.2.0",
+    "greenlet>=3.1.1",
+    "requests>=2.32.3",
+    "httpx>=0.27.2",
+    "python-multipart>=0.0.17",
+    "fastapi-mail>=1.4.2",
+]
+
+[dependency-groups]
+dev = [
+    "polyfactory",
+    "httpx",
+    "pytest",
+    "pytest-cov",
+    "pytest-asyncio",
+    "ruff",
+    "mypy",
+    "asyncpg-stubs",
+]
+
+[tool.ruff]
+fix = true
+unsafe-fixes = true
+line-length = 120
+target-version = "py312"
+extend-exclude = ["bin"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D1", # allow missing docstrings
+    "FBT", # allow boolean args
+    "ANN101", # missing-type-self
+    "ANN102", # missing-type-cls
+    "INP", # ignore flake8-no-pep420
+    "B008", # function-call-in-default-argument
+    "ANN204", # no typings for __init__
+    "RUF001", # allow cyrillic letters
+    "D203", # "one-blank-line-before-class" conflicting with D211
+    "D213", # "multi-line-summary-second-line" conflicting with D212
+    "COM812", # flake8-commas "Trailing comma missing"
+    "ISC001", # flake8-implicit-str-concat
+]
+isort.lines-after-imports = 2
+isort.no-lines-before = ["standard-library", "local-folder"]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/*.py" = [
+    "S101", # allow asserts
+]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+pretty = true
+
+[tool.pytest.ini_options]
+addopts = "--cov=. --cov-report term-missing"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.coverage.report]
+exclude_also = [
+    "if typing.TYPE_CHECKING:",
+]
+
+[tool.coverage.run]
+concurrency = ["thread","greenlet"]

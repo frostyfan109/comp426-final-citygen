@@ -1,0 +1,21 @@
+.map-create-steps {
+    .ant-steps-item {
+        overflow: visible;
+        cursor: pointer;
+    }
+    .ant-steps-item-title::after {
+        display: none;
+    }
+}
+.canvas-container {
+    position: relative;
+    display: inline-block;
+}
+.map-create-legend-extra {
+    font-size: 13px;
+}
+.map-settings-form {
+    input::placeholder {
+        color: #b4b4b4;
+    }
+}

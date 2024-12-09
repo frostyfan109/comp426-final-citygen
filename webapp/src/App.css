@@ -1,0 +1,84 @@
+.App {
+  text-align: center;
+  /* background-color: #282c34; */
+  background-color: rgba(13, 13, 13, 1);
+  background: linear-gradient(180deg, #000000, rgba(255, 0, 0, 0.125)), #000000;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.ant-message-notice-content {
+  border: 1px solid #d4380d;
+}
+
+.ant-segmented-thumb {
+  display: none;
+}
+.ant-segmented-item-label[aria-selected="true"] {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-form-item-with-help > .ant-form-item-margin-offset {
+  /* Increase margin between items with help so spacing is more natural (normally -24px) */
+  margin-bottom: -16px !important;
+}
+
+.retry-btn {
+  border: 1px solid #f5222d;
+  color: #f5222d;
+}
+
+.btn-secondary {
+  background: #d46b08;
+
+  &:hover {
+    background: #fa8c16 !important;
+  }
+  &:active {
+    background: #ffa940 !important;
+  }
+}
+
+.ant-form {
+  .ant-input-prefix {
+    color: black;
+  }
+  .ant-input-password > .ant-input-suffix > span {
+    color: black;
+  }
+  .ant-form-item-control-input {
+    input {
+        color: rgba(0, 0, 0, 0.85);
+    }
+    .ant-input-status-error input {
+        color: #f5222d;
+    }
+  }
+  input.ant-input {
+    &::placeholder {
+        color: #b4b4b4;
+    }
+  }
+}
+
+.ant-popover-inner, .ant-popover-inner-content, .ant-popover-arrow::before, .ant-popover-arrow::after {
+  background: rgba(64, 64, 64) !important;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

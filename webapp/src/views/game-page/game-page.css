@@ -1,0 +1,10 @@
+.teleport-popover {
+    .ant-input-number {
+        input {
+            color: black;
+        }
+        .ant-input-number-handler-wrap {
+            display: none;
+        }
+    }
+}
