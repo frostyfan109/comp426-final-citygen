@@ -18,6 +18,8 @@ env
 docs_build
 site_build
 venv
+.venv
+postgres-data
 docs.zip
 archive.zip
 
