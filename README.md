@@ -6,6 +6,8 @@ This project consists of 3 components:
 - FastAPI backend
 - PostgreSQL DB
 
+Presentation video: https://www.youtube.com/watch?v=hxrfjfvJYbM
+
 ## Backend
 ### Getting started
 For local development, you'll want to have [uv](https://github.com/astral-sh/uv) and [just](https://github.com/casey/just) installed.
