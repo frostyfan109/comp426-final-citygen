@@ -113,6 +113,7 @@ export const GamePage = ({ mapId }: GamePageProps) => {
         
         game.current = new Game(canvasRef.current, map.data);
         game.current.startGame();
+        game.current.soundEnabled = true
         updatePlayerCoords()
 
         const player = game.current.player

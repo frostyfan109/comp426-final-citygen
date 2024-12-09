@@ -6,34 +6,11 @@ from uuid import UUID
 
 from app.auth import get_current_user, get_current_user_or_none
 from app.db import create_session
-from app.models import UserModel, MapModel, MapFavoriteModel
-from app.repositories import MapRepository, MapService, MapFavoriteRepository, ThumbnailRepository, ThumbnailService
+from app.models import UserModel, MapModel
+from app.repositories import MapRepository, MapService, MapFavoriteService, ThumbnailService
 from app.schemas import MapFavoritedBody, MapCreateBody, MapCreate, MapRead, MapReadWithData, ThumbnailRead, ThumbnailCreate
-from app.exceptions import MapDoesNotExistException, MapNotPublicException
 
 router = APIRouter(prefix="/maps")
-
-async def is_map_favorited(session: AsyncSession, map_id: UUID, user_id: int) -> bool:
-    map_favorited = await MapFavoriteRepository(session=session).get_one_or_none(
-        map_id=map_id,
-        user_id=user_id
-    )
-    return map_favorited is not None
-
-async def get_map(
-    session: AsyncSession,
-    map_id: UUID,
-    user: UserModel | None,
-    **kwargs
-) -> MapModel:
-    map = await MapRepository(session=session).get_one_or_none(id=map_id, **kwargs)
-
-    if map is None:
-        raise MapDoesNotExistException
-    if map.private:
-        if user is None or user.id != map.user_id:
-            raise MapNotPublicException
-    return map
 
 @router.get("/", response_model=list[MapRead])
 async def get_public_maps(
@@ -43,6 +20,8 @@ async def get_public_maps(
     include_self: bool = False
 ):
     map_repository = MapRepository(session=session)
+    map_favorite_service = MapFavoriteService(session=session)
+
     if user is not None and not include_self:
         maps = await map_repository.list(
             MapModel.private == False,
@@ -52,7 +31,7 @@ async def get_public_maps(
     else:
         maps = await map_repository.list(MapModel.private == False, load=MapModel.user)
     for map in maps:
-        if user is not None: map.favorited = await is_map_favorited(session, map.id, user.id)
+        if user is not None: map.favorited = await map_favorite_service.is_map_favorited(map.id, user.id)
         else: map.favorited = False
     return maps
 
@@ -63,8 +42,10 @@ async def get_my_maps(
     user: UserModel = Depends(get_current_user),
 ):
     map_repository = MapRepository(session=session)
+    map_favorite_service = MapFavoriteService(session=session)
+
     maps = await map_repository.list(MapModel.user_id == user.id)
-    for map in maps: map.favorited = await is_map_favorited(session, map.id, user.id)
+    for map in maps: map.favorited = await map_favorite_service.is_map_favorited(map.id, user.id)
     return maps
 
 @router.get("/{map_id}", response_model=Union[MapReadWithData, MapRead])
@@ -75,9 +56,12 @@ async def get_map_endpoint(
     map_id: UUID,
     include_data: bool = False
 ):
-    map = await get_map(session, map_id, user, load=MapModel.user)
+    map_service = MapService(session=session)
+    map_favorite_service = MapFavoriteService(session=session)
+
+    map = await map_service.get_map(map_id, user, load=MapModel.user)
         
-    if user is not None: map.favorited = await is_map_favorited(session, map_id, user.id)
+    if user is not None: map.favorited = await map_favorite_service.is_map_favorited(map_id, user.id)
     else: map.favorited = False
         
     if include_data:
@@ -99,7 +83,9 @@ async def get_map_thumbnail(
     accept: str = Header("image/jpeg"),
     map_id: UUID
 ):
-    map = await get_map(session, map_id, user, load=MapModel.thumbnail)
+    map_service = MapService(session=session)
+
+    map = await map_service.get_map(map_id, user, load=MapModel.thumbnail)
     
     if accept == "application/json": return ThumbnailRead.model_validate(map.thumbnail)
     return Response(
@@ -115,23 +101,12 @@ async def set_map_favorited(
     map_id: UUID,
     favorited_body: MapFavoritedBody
 ):
-    map_favorite_repository = MapFavoriteRepository(session=session)
+    map_service = MapService(session=session)
+    map_favorite_service = MapFavoriteService(session=session)
 
     # Verify that the map exists and the authenticated user can access it.
-    map = await get_map(session, map_id, user)
-
-    # Don't bother if state already matches requested state
-    if favorited_body.favorited == await is_map_favorited(session, map_id, user.id): return
-
-    if favorited_body.favorited:
-        await map_favorite_repository.add(MapFavoriteModel(user_id=user.id, map_id=map_id))
-    else:
-        await map_favorite_repository.delete_where(
-            map_id=map_id,
-            user_id=user.id
-        )
-    
-    await session.commit()
+    map = await map_service.get_map(map_id, user)
+    await map_favorite_service.set_map_favorited(map_id, user.id, favorited_body.favorited)
 
 @router.post("/", response_model=MapRead)
 async def create_map(

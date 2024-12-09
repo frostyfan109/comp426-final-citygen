@@ -18,7 +18,7 @@
     "classnames": "^2.5.1",
     "d3-quadtree": "^1.0.7",
     "dat.gui": "^0.7.9",
-    "engine": "file:../../raycast-engine/engine",
+    "engine": "github:frostyfan109/JavaScript-Raycasting-Engine#new-updates",
     "extendable-error": "^0.1.7",
     "interactjs": "^1.10.27",
     "isect": "^3.0.2",
