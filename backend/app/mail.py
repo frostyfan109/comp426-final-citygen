@@ -18,6 +18,8 @@ mail_conf = ConnectionConfig(
 fast_mail = FastMail(mail_conf) if settings.mail_enabled else None
 
 async def send_reset_password_email(user: UserModel, token: str, request: Request):
+    if not settings.mail_enabled: return
+
     origin = f"{ request.url.scheme}://{ request.url.hostname }"
     if request.url.port: origin += f":{ request.url.port }"
 

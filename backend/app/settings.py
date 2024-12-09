@@ -16,14 +16,14 @@ class Settings(pydantic_settings.BaseSettings):
     access_token_lifetime_seconds: int = 60 * 60 * 24 * 30
     log_level: LogLevels = LogLevels.info
 
-    mail_username: Optional[str] = None
-    mail_password: Optional[str] = None
-    mail_from: Optional[str] = None
-    mail_port: Optional[int] = None
-    mail_server: Optional[str] = None
-    mail_from_name: Optional[str] = None
-    mail_starttls: bool = True
-    mail_ssl_tls: bool = False
+    # mail_username: Optional[str] = None
+    # mail_password: Optional[str] = None
+    # mail_from: Optional[str] = None
+    # mail_port: Optional[int] = None
+    # mail_server: Optional[str] = None
+    # mail_from_name: Optional[str] = None
+    # mail_starttls: bool = True
+    # mail_ssl_tls: bool = False
 
     db_driver: str = "postgresql+asyncpg"
     db_host: str
@@ -50,7 +50,8 @@ class Settings(pydantic_settings.BaseSettings):
     
     @property
     def mail_enabled(self) -> bool:
-        return self.mail_username is not None and self.mail_password is not None
+        return False
+        # return self.mail_username is not None and self.mail_password is not None
 
 
 settings = Settings()
