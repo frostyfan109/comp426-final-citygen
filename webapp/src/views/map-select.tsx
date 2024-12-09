@@ -67,6 +67,11 @@ export const MapSelect = () => {
         const source = showPublicMaps ? publicMaps : userMaps
         if (!source) return
         if (search) return source.filter((map) => map.name.toLowerCase().includes(search.toLowerCase()))
+        return [...source].sort((a, b) => {
+            if (a.favorited && !b.favorited) return -1
+            if (!a.favorited && b.favorited) return 1
+            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        })
         return source 
     }, [showPublicMaps, userMaps, publicMaps, search])
     
@@ -87,10 +92,9 @@ export const MapSelect = () => {
                     signal: publicMapsAbortController.current.signal
                 })
             ])
-            setUserMaps(newUserMaps.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()))
-            setPublicMaps(newPublicMaps.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()))
+            setUserMaps(newUserMaps)
+            setPublicMaps(newPublicMaps)
             setActiveTab("Your Maps")
-            setMapSelection(newUserMaps[0])
             setMapsLoading(false)
         } catch (e: any) {
             if (e.isAbort) return
@@ -138,10 +142,10 @@ export const MapSelect = () => {
         }
     }, [loadMaps])
 
-    useEffect(() => {
-        if (showPublicMaps) setMapSelection(publicMaps?.[0])
-        else setMapSelection(userMaps?.[0])
-    }, [showPublicMaps])
+    // useEffect(() => {
+    //     if (showPublicMaps) setMapSelection(publicMaps?.[0])
+    //     else setMapSelection(userMaps?.[0])
+    // }, [showPublicMaps])
 
     return (
         <Space direction="vertical" size={ 12 } style={{ width: "100%" }}>
@@ -154,7 +158,7 @@ export const MapSelect = () => {
                     options={[ "Your Maps", "Public Maps" ]}
                     style={{ marginBottom: 16 }}
                 />
-                { dataSource && dataSource.length > 0 && (
+                { dataSource && (search || dataSource.length > 0) && (
                     <Input
                         className="search-maps-input"
                         placeholder="Search..."
@@ -239,7 +243,9 @@ export const MapSelect = () => {
                         ) : (
                             <Text style={{ color: gray[0] }}>
                                 {
-                                    activeTab === "Your Maps" ? (
+                                    search.length > 0 ? (
+                                        "No maps found..."
+                                    ) : activeTab === "Your Maps" ? (
                                         "You haven't created any maps yet..."
                                     ) :
                                     activeTab === "Public Maps" ? (

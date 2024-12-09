@@ -314,7 +314,7 @@ export const GamePage = ({ mapId }: GamePageProps) => {
                                                             setShowTeleportPopover(false)
                                                         }}
                                                         onCancel={ () => setShowTeleportPopover(false) }
-                                                        cancelButtonProps={{ type: "text", style: { color: "Red" } }}
+                                                        cancelButtonProps={{ type: "text", style: { display: "none", color: "Red" } }}
                                                         destroyTooltipOnHide
                                                         description={ (
                                                             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>

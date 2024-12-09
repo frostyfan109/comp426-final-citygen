@@ -35,4 +35,4 @@ class MapFavoriteService(SQLAlchemyAsyncRepositoryService[MapFavoriteModel]):
                 user_id=user_id
             )
         
-        await self.session.commit()
+        await self.repository.session.commit()

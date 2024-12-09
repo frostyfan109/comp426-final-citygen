@@ -11,7 +11,7 @@ interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
 
 export const Header = ({
     title="City-Gen", 
-    subTitle="Interactive city generation",
+    subTitle="Interactive city generation & exploration",
     size="large",
     ...props
 }: HeaderProps) => {
